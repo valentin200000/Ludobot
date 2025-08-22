@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Tête du robot -->
+  <circle cx="100" cy="100" r="90" fill="#64B5F6" stroke="#0D47A1" stroke-width="4"/>
+  
+  <!-- Yeux -->
+  <circle cx="65" cy="80" r="15" fill="white" stroke="#0D47A1" stroke-width="2"/>
+  <circle cx="135" cy="80" r="15" fill="white" stroke="#0D47A1" stroke-width="2"/>
+  
+  <!-- Pupilles (regardant vers le haut - expression joyeuse) -->
+  <circle cx="65" cy="75" r="7" fill="#0D47A1"/>
+  <circle cx="135" cy="75" r="7" fill="#0D47A1"/>
+  
+  <!-- Bouche souriante -->
+  <path d="M60,130 Q100,160 140,130" stroke="#0D47A1" stroke-width="6" fill="none"/>
+  
+  <!-- Antennes -->
+  <line x1="80" y1="20" x2="90" y2="5" stroke="#0D47A1" stroke-width="3"/>
+  <line x1="120" y1="20" x2="110" y2="5" stroke="#0D47A1" stroke-width="3"/>
+  <circle cx="90" cy="5" r="4" fill="#FF5722"/>
+  <circle cx="110" cy="5" r="4" fill="#FF5722"/>
+  
+  <!-- Joues -->
+  <circle cx="60" cy="110" r="10" fill="#EF9A9A" opacity="0.7"/>
+  <circle cx="140" cy="110" r="10" fill="#EF9A9A" opacity="0.7"/>
+  
+  <!-- Reflet -->
+  <ellipse cx="75" cy="50" rx="15" ry="10" fill="white" opacity="0.5"/>
+</svg>

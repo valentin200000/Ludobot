@@ -1,0 +1,41 @@
+Numéro;Question;Réponse;Choix1;Choix2;Choix3;Choix4;;
+1;Quelle est la capitale de la France ?;valentin;Paris;Londres;Berlin;Madrid;;Paris
+2;Quel est le plus grand océan du monde ?;valentin;l'océan Pacifique;l'océan Atlantique;l'océan Indien;l'océan Arctique;;l'océan Pacifique
+3;Combien de continents y a-t-il sur Terre ?;valentin;7;5;6;8;;7
+4;Quelle est la plus haute montagne du monde ?;valentin;l'Everest;le mont Blanc;le Kilimandjaro;les Alpes;;l'Everest
+5;Dans quel pays se trouve la tour Eiffel ?;valentin;France;Italie;Espagne;Allemagne;;France
+6;Quel animal est le roi de la jungle ?;valentin;le lion;le tigre;l'éléphant;la girafe;;le lion
+7;Combien de pattes a une araignée ?;valentin;8;6;10;4;;8
+8;Quelle couleur obtient-on en mélangeant rouge et bleu ?;valentin;violet;vert;orange;jaune;;violet
+9;Quel est le plus long fleuve du monde ?;valentin;le Nil;l'Amazone;le Mississippi;la Seine;;le Nil
+10;Dans quelle saison les feuilles tombent-elles ?;valentin;automne;printemps;été;hiver;;automne
+11;Combien de jours y a-t-il dans une semaine ?;valentin;7;5;6;10;;7
+12;Quel organe pompe le sang dans notre corps ?;valentin;le cœur;les poumons;le foie;l'estomac;;le cœur
+13;Quelle planète est la plus proche du Soleil ?;valentin;Mercure;Vénus;Mars;Terre;;Mercure
+14;Quel fruit est jaune et courbé ?;valentin;la banane;la pomme;l'orange;la poire;;la banane
+15;Combien font 5 + 3 ?;valentin;8;7;9;6;;8
+16;Quel animal donne du lait ?;valentin;la vache;le cheval;le mouton;la poule;;la vache
+17;Dans quel pays se trouve Rome ?;valentin;Italie;France;Espagne;Grèce;;Italie
+18;Combien de doigts avons-nous sur une main ?;valentin;5;4;6;10;;5
+19;Quel est l'animal le plus rapide du monde ?;valentin;le guépard;le lion;le cheval;l'aigle;;le guépard
+20;Quelle est la couleur du soleil ?;valentin;jaune;rouge;blanc;orange;;jaune
+21;Combien de mois y a-t-il dans une année ?;valentin;12;10;11;13;;12
+22;Quel instrument mesure la température ?;valentin;le thermomètre;le baromètre;la balance;la règle;;le thermomètre
+23;Quel animal construit des barrages ?;valentin;le castor;l'écureuil;le renard;l'ours;;le castor
+24;Quelle est la capitale de l'Italie ?;valentin;Rome;Milan;Naples;Venise;;Rome
+25;Combien d'yeux avons-nous ?;valentin;2;1;3;4;;2
+26;Quel gaz respirons-nous ?;valentin;l'oxygène;l'azote;le dioxyde de carbone;l'hélium;;l'oxygène
+27;Quel est le plus petit pays du monde ?;valentin;le Vatican;Monaco;Nauru;Andorre;;le Vatican
+28;Combien de côtés a un triangle ?;valentin;3;4;5;6;;3
+29;Quel animal pond des œufs et vole ?;valentin;l'oiseau;le poisson;le chat;le chien;;l'oiseau
+30;Quelle saison vient après l'hiver ?;valentin;le printemps;l'été;l'automne;l'hiver;;le printemps
+31;Combien font 10 - 4 ?;valentin;6;5;7;4;;6
+32;Quel est le plus gros animal de la planète ?;valentin;la baleine bleue;l'éléphant;le requin;la girafe;;la baleine bleue
+33;Dans quelle partie de la plante se trouve la chlorophylle ?;valentin;les feuilles;les racines;les fleurs;le tronc;;les feuilles
+34;Combien de pattes a un chien ?;valentin;4;2;6;8;;4
+35;Quel est le contraire de chaud ?;valentin;froid;tiède;sec;humide;;froid
+36;Quelle forme a un ballon de football ?;valentin;ronde;carrée;triangulaire;ovale;;ronde
+37;Combien de minutes y a-t-il dans une heure ?;valentin;60;50;100;30;;60
+38;Quel animal rugit ?;valentin;le lion;le chat;le chien;l'oiseau;;le lion
+39;Quelle est la couleur de l'herbe ?;valentin;verte;bleue;rouge;jaune;;verte
+40;Combien font 2 × 4 ?;valentin;8;6;10;12;;8

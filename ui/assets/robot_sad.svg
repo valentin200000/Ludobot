@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Tête du robot -->
+  <circle cx="100" cy="100" r="90" fill="#64B5F6" stroke="#0D47A1" stroke-width="4"/>
+  
+  <!-- Yeux -->
+  <circle cx="65" cy="80" r="15" fill="white" stroke="#0D47A1" stroke-width="2"/>
+  <circle cx="135" cy="80" r="15" fill="white" stroke="#0D47A1" stroke-width="2"/>
+  
+  <!-- Pupilles (regardant vers le bas - expression triste) -->
+  <circle cx="65" cy="85" r="7" fill="#0D47A1"/>
+  <circle cx="135" cy="85" r="7" fill="#0D47A1"/>
+  
+  <!-- Sourcils tristes -->
+  <line x1="50" y1="60" x2="75" y2="70" stroke="#0D47A1" stroke-width="3"/>
+  <line x1="150" y1="60" x2="125" y2="70" stroke="#0D47A1" stroke-width="3"/>
+  
+  <!-- Bouche triste -->
+  <path d="M60,140 Q100,120 140,140" stroke="#0D47A1" stroke-width="6" fill="none"/>
+  
+  <!-- Antennes baissées -->
+  <line x1="80" y1="20" x2="70" y2="10" stroke="#0D47A1" stroke-width="3"/>
+  <line x1="120" y1="20" x2="130" y2="10" stroke="#0D47A1" stroke-width="3"/>
+  <circle cx="70" cy="10" r="4" fill="#FF5722"/>
+  <circle cx="130" cy="10" r="4" fill="#FF5722"/>
+  
+  <!-- Goutte de larme -->
+  <path d="M65,100 Q65,110 60,115" stroke="#90CAF9" stroke-width="2" fill="#90CAF9"/>
+  <circle cx="60" cy="115" r="3" fill="#90CAF9"/>
+</svg>

@@ -1,0 +1,17 @@
+Service,Profession,Nom,Telephone
+Urgence,pompiers,Centre de secours,18
+Urgence,SAMU,Service d'aide médicale urgente,15
+Urgence,Police,Commissariat,17
+Urgence,Appel d'urgence européen,Centre d'appel,112
+Santé,Médecin,Dr. Martin,01 23 45 67 89
+Santé,Infirmière,Mme. Dubois,01 23 45 67 90
+Santé,Pharmacie,Pharmacie Centrale,01 23 45 67 91
+Santé,Dentiste,Dr. Petit,01 23 45 67 92
+Établissement,Directeur,M. Leroy,01 23 45 67 93
+Établissement,Secrétariat,Mme. Bernard,01 23 45 67 94
+Établissement,Maintenance,M. Thomas,01 23 45 67 95
+Établissement,Cuisine,M. Richard,01 23 45 67 96
+Services,Coiffeur,Salon Élégance,01 23 45 67 97
+Services,Pédicure,Mme. Robert,01 23 45 67 98
+Services,Kinésithérapeute,M. Durand,01 23 45 67 99
+Services,Psychologue,Dr. Moreau,01 23 45 68 00
