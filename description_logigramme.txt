@@ -1,0 +1,204 @@
+# DESCRIPTION COMPLÈTE DU LOGIGRAMME LUDOBOT
+
+## ARCHITECTURE GÉNÉRALE
+
+### Point d'entrée principal
+- main.py (fichier Python principal)
+  ↓
+- Initialise QQmlApplicationEngine
+  ↓
+- Charge ui/main.qml (interface principale)
+
+### Composants Python Backend
+1. CONTRÔLEURS SYSTÈME (dossier controllers/)
+   - SettingsController (paramètres généraux)
+   - WifiController (gestion WiFi)
+   - VolumeController (contrôle audio)
+   - BrightnessController (luminosité écran)
+
+2. CHARGEURS DE DONNÉES
+   - CSVQuizLoader (questions quiz)
+   - SubjectLoader (matières scolaires)
+   - ContactLoader (contacts externes)
+   - ActivitiesLoader (planning activités)
+   - MenuLoader (menus repas)
+   - ResidentContactLoader (contacts résidents)
+   - ResidentRoomLoader (gestion chambres)
+
+3. GESTIONNAIRES
+   - WifiManager (gestionnaire WiFi bas niveau)
+
+### Interface QML Frontend
+- 42 pages QML au total
+- Navigation par StackView (pile de pages)
+- Thème unifié via Style.qml
+- Assets (icônes, sons, images)
+
+## FLUX DE NAVIGATION PRINCIPAL
+
+### Page d'accueil (main.qml)
+DÉBUT → main.qml
+  ↓
+SÉLECTION MODE:
+  ├─ Mode Résident → ResidentPage.qml
+  ├─ Mode Visiteur → VisiteurPage.qml  
+  ├─ Mode Grand-Parent → GrandParentPage.qml
+  └─ Mode Senior → SeniorHomePage.qml
+
+BOUTONS PRINCIPAUX depuis main.qml:
+  ├─ JOUER → PlayPage.qml
+  └─ PARAMÈTRES → SettingsPage.qml
+
+## MODE RÉSIDENT (ResidentPage.qml)
+
+ResidentPage.qml → Menu principal résident avec 7 options:
+
+1. JEUX → JeuxMenuPage.qml
+   ├─ Memory Games → MemoryGamesMenuPage.qml
+   │   ├─ Memory Cards → MemoryCardsPage.qml
+   │   ├─ Simon Says → SimonSaysPage.qml
+   │   └─ Color Sequence → ColorSequencePage.qml
+   ├─ Quiz → MatieresMenuPage.qml → [Pages Quiz spécialisées]
+   └─ Sound Game → [Jeu sonore]
+
+2. ACTIVITÉS → ActivitiesPage.qml
+   └─ Données depuis activities.csv
+
+3. MENU → MenuPage.qml
+   └─ Données depuis menu.csv
+
+4. CONTACTS → ContactPage.qml
+   ├─ Contacts externes → contacts.csv
+   ├─ Contacts résidents → ResidentContactPage.qml
+   └─ Vision contacts → ContactVisionPage.qml
+
+5. PLAN → PlanPage.qml
+   └─ Affichage plan.jpg
+
+6. RAPPELS
+   ├─ Médicaments → MedicationReminderPage.qml
+   └─ Rendez-vous → AppointmentReminderPage.qml
+
+7. PARAMÈTRES → SettingsPage.qml
+
+## SYSTÈME DE QUIZ ÉDUCATIFS
+
+PlayPage.qml → Sélection âge
+  ↓
+SI âge = 3 ans → Aucun quiz disponible
+SI âge = 4-10 ans → MatieresMenuPage.qml
+
+MatieresMenuPage.qml → Sélection matière:
+├─ Mathématiques → MathsQuizPage.qml → maths.csv
+├─ Sciences → ScienceQuizPage.qml → science.csv
+├─ Histoire → HistoireQuizPage.qml → histoire.csv
+├─ Géographie → GeographieQuizPage.qml → geographie.csv
+├─ Français → FrancaisQuizPage.qml → francais.csv
+├─ Culture Générale → CultureGeneraleQuizPage.qml → culturegeneral.csv
+├─ Capitales → CapitalesQuizPage.qml → capitales.csv
+├─ Pays → PaysQuizPage.qml → pays.csv
+└─ SVT → SVTQuizPage.qml → science.csv
+
+LOGIQUE QUIZ:
+1. Page quiz charge SubjectLoader
+2. SubjectLoader lit fichier CSV correspondant
+3. Questions formatées (colonnes B-G utilisées)
+4. Affichage questions avec choix multiples
+5. Calcul score et affichage résultats
+
+## MODE VISITEUR
+
+VisiteurPage.qml → VisiteurHomePage.qml → VisiteurCategoryPage.qml
+
+Catégories visiteur:
+├─ Plans du bâtiment → PlanPage.qml
+├─ Activités & Événements → ActivitiesPage.qml
+└─ Informations utiles → InfoPage.qml
+
+## JEUX DE MÉMOIRE
+
+MemoryGamesMenuPage.qml → Sélection jeu:
+├─ Memory Cards → MemoryCardsPage.qml
+│   └─ Logique: paires de cartes à retourner
+├─ Simon Says → SimonSaysPage.qml
+│   └─ Logique: répétition séquences colorées
+└─ Color Sequence → ColorSequencePage.qml
+    └─ Logique: mémorisation ordre couleurs
+
+## GESTION DES CONTACTS
+
+ContactPage.qml → Types de contacts:
+├─ Contacts externes → Lecture contacts.csv
+├─ Contacts résidents → ResidentContactPage.qml
+│   └─ Données depuis resident_contacts.csv
+├─ Gestion chambres → ResidentRoomPage.qml
+│   └─ Données depuis resident_rooms.csv
+└─ Vision contacts → ContactVisionPage.qml
+
+## CONFIGURATION SYSTÈME
+
+SettingsPage.qml → Paramètres:
+├─ Configuration WiFi → WifiPage.qml
+│   ├─ WifiController (interface)
+│   └─ WifiManager (gestion bas niveau)
+├─ Contrôle volume → VolumeController
+├─ Réglage luminosité → BrightnessController
+└─ Paramètres généraux → SettingsController
+
+## FLUX DE DONNÉES
+
+PIPELINE DONNÉES:
+Fichiers CSV (dossier quizzes/) 
+  ↓
+Chargeurs Python spécialisés
+  ↓
+Traitement et validation données
+  ↓
+Exposition via QML Context Properties
+  ↓
+Consommation par pages QML
+  ↓
+Affichage interface utilisateur
+
+FICHIERS CSV PRINCIPAUX:
+- maths.csv, science.csv, histoire.csv, geographie.csv, francais.csv
+- culturegeneral.csv, capitales.csv, pays.csv
+- activities.csv, menu.csv, contacts.csv
+- resident_contacts.csv, resident_rooms.csv
+- plan.jpg (image plan)
+
+## STRUCTURE TECHNIQUE
+
+COMMUNICATION:
+- Python ↔ QML via Signaux/Slots Qt
+- Context Properties pour exposition objets Python
+- StackView pour navigation entre pages
+- Style.qml pour thème unifié
+
+ENCODAGE DONNÉES:
+- CSV avec délimiteur point-virgule (;)
+- Encodage UTF-8 avec fallback latin-1
+- Format questions: colonnes B (question), C (réponse correcte), D-G (choix)
+
+MODES UTILISATEUR:
+- Résident: interface complète avec tous les modules
+- Visiteur: informations et navigation uniquement
+- Grand-Parent: accès jeux et quiz pour enfants
+- Senior: interface adaptée seniors
+- Parent: contrôle parental et configuration
+
+## POINTS D'ENTRÉE ET RETOUR
+
+NAVIGATION:
+- Bouton retour dans chaque page (stackView.pop())
+- Navigation avant via stackView.push()
+- Gestion pile automatique
+- Retour à l'accueil possible depuis n'importe où
+
+ÉTATS PAGES:
+- Chargement automatique données au Component.onCompleted
+- Gestion erreurs avec messages utilisateur
+- Fallbacks par défaut si fichiers CSV manquants
+- Interface responsive pour différentes résolutions
+
+Cette description complète permet de générer un logigramme graphique détaillé avec tous les flux, connexions et composants de l'application LudoBot.
