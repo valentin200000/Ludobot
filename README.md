@@ -1,189 +1,193 @@
-# 🤖 LudoBot - Application Interactive pour Raspberry Pi
+Top — j’ai relu ton contenu : il couvre bien les essentiels (objectif, archi, structure, modules, données, install, exécution, IU, dépannage, dev).
+Il manque juste **quelques petits plus “pro”** que je te propose en fin de doc (facultatifs) : tableau des **paramètres par défaut**, **journalisation**, **tests/CI**, **confidentialité & accès fichiers**.
 
-Une application Qt6/QML complète pour Raspberry Pi offrant des quiz éducatifs, jeux de mémoire, gestion des contacts et bien plus encore.
+Voici la **version mise en forme** (cohérente, compacte, prête à coller) :
 
-## 🎯 Fonctionnalités
+---
 
-### 🧠 Quiz Éducatifs
-- **Mathématiques** - Calculs et logique adaptés par âge
-- **Sciences** - Découverte du monde scientifique
-- **Histoire** - Événements et personnages historiques
-- **Géographie** - Pays, capitales et continents
-- **Français** - Vocabulaire et grammaire
-- **Culture Générale** - Connaissances diverses
+# 🤖 LudoBot – Application interactive Qt/QML pour Raspberry Pi
 
-### 🎮 Jeux de Mémoire
-- **Memory Cards** - Jeu de paires classique
-- **Simon Says** - Répétition de séquences
-- **Color Sequence** - Mémorisation de couleurs
+Application éducative et d’assistance orientée seniors/visiteurs, combinant quiz, jeux mémoire, gestion d’informations résidents et utilitaires, avec une architecture propre basée sur le **pattern Façade**.
 
-### 👥 Gestion des Contacts
-- **Contacts Résidents** - Base de données des résidents
-- **Contacts Externes** - Carnet d'adresses
-- **Gestion des Chambres** - Attribution et suivi
+## 1) Objectifs & périmètre
 
-### 📅 Fonctionnalités Utilitaires
-- **Activités** - Planning des événements
-- **Menus** - Gestion des repas
-- **Rappels** - Médicaments et rendez-vous
-- **Plans** - Navigation dans les bâtiments
+* Interfaces **Résident** et **Visiteur** adaptées.
+* **Quiz** thématiques (maths, géographie, culture G., etc.).
+* **Jeux mémoire** (Memory, Simon, séquences couleurs).
+* **Utilitaires** : activités, menus, plan, rappel, contacts/résidents/chambres.
+* **Intégration robotique** (caméra, moteurs) encapsulée derrière une façade simple.
 
-### ⚙️ Configuration
-- **WiFi** - Gestion des connexions réseau
-- **Volume** - Contrôle audio
-- **Luminosité** - Réglage de l'écran
-- **Paramètres** - Personnalisation de l'interface
+## 2) Architecture (Façade)
 
-## 📋 Prérequis
+* **Classe** : `RobotFacade` (`main.py`)
+* **Rôle** : exposer une API minimale à QML et masquer capteurs/caméra/moteurs/chargeurs.
+* **Signaux** : `system_ready()`, `error_occurred(message: str)`, `user_interface_active()`
+* **Méthode principale** : `start_robot_system()` — vérifications → suivi visage → centrage → (approche distance **simulée** si pas de translation) → réglage vertical → activation IU → surveillance sécurité (QTimer).
+* **Méthodes internes** : `_verify_all_systems()`, `_find_and_track_user()`, `_center_on_user()`, `_approach_target_distance()` *(simulation)*, `_vertical_adjustment()`, `_activate_user_interface()`, `_start_safety_monitoring()`, `_emergency_stop()`.
 
-- **Python 3.8+**
-- **PySide6 6.4.0+**
-- **Raspberry Pi OS** (ou compatible Linux)
+**Atouts** : interface QML simple (`robotFacade`), encapsulation forte, évolutivité sans impacter l’IU.
 
-## 🚀 Installation
-
-### 1. Cloner le projet
-```bash
-git clone <repository-url>
-cd raspberry-software
-```
-
-### 2. Créer l'environnement virtuel
-```bash
-python -m venv .venv
-source .venv/bin/activate  # Linux/Mac
-# ou
-.venv\Scripts\activate     # Windows
-```
-
-### 3. Installer les dépendances
-```bash
-pip install -r requirements.txt
-```
-
-## 📁 Structure du Projet
+## 3) Structure du projet
 
 ```
 raspberry-software/
-├── main.py                 # Point d'entrée principal
-├── requirements.txt        # Dépendances Python
-├── controllers/           # Contrôleurs système
-│   ├── luminosite.py      # Gestion luminosité
-│   ├── parametres.py      # Configuration
-│   ├── volume.py          # Contrôle audio
-│   └── wifi.py            # Gestion WiFi
-├── ui/                    # Interface QML
-│   ├── main.qml           # Interface principale
-│   ├── Style.qml          # Thème et styles
-│   ├── assets/            # Ressources (icônes, sons)
-│   └── *.qml              # Pages de l'application
-├── quizzes/               # Données CSV
-│   ├── maths.csv          # Questions mathématiques
-│   ├── science.csv        # Questions sciences
-│   ├── activities.csv     # Planning activités
-│   ├── menu.csv           # Menus des repas
-│   └── *.csv              # Autres données
-├── utils/                 # Utilitaires C++
-│   ├── fileio.cpp         # Gestion fichiers
-│   └── fileio.h           # Headers
-└── .venv/                 # Environnement virtuel
+├── main.py
+├── controllers/
+│   ├── camera.py                # Détection visage, trames
+│   ├── capteurs.py              # Infrarouge / ultrason, agrégats sécurité
+│   ├── moteurs_horizontaux.py   # Rotation horizontale (centrage PD)
+│   ├── moteurs_verticaux.py     # Inclinaison/centrage vertical
+│   ├── parametres.py            # Réglages applicatifs
+│   ├── volume.py                # Audio
+│   ├── luminosite.py            # Luminosité écran
+│   └── wifi.py                  # Contrôleur Wi-Fi (UI)
+├── ui/
+│   ├── main.qml                 # Entrée UI
+│   ├── Style.qml                # Thème/styles
+│   ├── assets/                  # icônes / polices / sons
+│   └── *.qml                    # 42 vues
+├── quizzes/                     # Données CSV (+ plan.jpg)
+├── utils/
+│   ├── fileio.cpp
+│   └── fileio.h
+├── activities_loader.py
+├── chargeur_matieres.py
+├── chargeur_quiz.py
+├── contact_loader.py
+├── gestionnaire_wifi.py         # WifiManager (backend nmcli)
+├── menu_loader.py
+├── resident_contact_loader.py
+├── resident_room_loader.py
+├── test_capteurs_complet.py
+└── .gitignore / .venv/
 ```
 
-## 🎮 Utilisation
+## 4) Modules (vue d’ensemble)
 
-### Lancement de l'application
-```bash
-# Activer l'environnement virtuel
-source .venv/bin/activate
+### 4.1 Contrôleurs (`controllers/`)
 
-# Lancer l'application
-python main.py
-```
+* `camera.py` — capture 640×480, détection visage, signaux `face_detected`, `camera_frame_ready`, calcul centre visage.
+* `capteurs.py` — lecture IR/US, `compter_presences_ir()`, `obstacle_proche(seuil)`, `status_securite()`, QTimer 200 ms, signaux de défaillance.
+* `moteurs_horizontaux.py` — `ajuster_rotation_horizontale(face_center_x, img_width)`, PD (Kp/Kd), deadband horizontale, timeouts.
+* `moteurs_verticaux.py` — `center_on_face_y(face_center_y, img_height)`, deadband verticale, auto-stop.
+* `parametres.py` — `SettingsController` (réglages IU actuels).
+* `volume.py` / `luminosite.py` — services transverses IU.
+* `wifi.py` — `WifiController` (exposé à QML).
 
-### Modes d'utilisation
-- **Mode Résident** - Interface simplifiée pour les résidents
-- **Mode Visiteur** - Informations et navigation
-- **Mode Parent** - Contrôle parental et configuration
-- **Mode Formation** - Outils éducatifs avancés
+### 4.2 Gestion Wi-Fi système
 
-## 📊 Format des Fichiers CSV
+* `gestionnaire_wifi.py` — `WifiManager` (backend `nmcli`, utilisé par `WifiController`). Désactivation automatique hors Linux.
 
-### Quiz (colonnes B-G utilisées)
+### 4.3 Chargeurs de données
+
+* `chargeur_quiz.py` (`CSVQuizLoader`) — lecture CSV colonnes B→G, échantillonnage 10 questions.
+* `chargeur_matieres.py` — mappage matières.
+* `activities_loader.py`, `menu_loader.py` — activités/menus.
+* `contact_loader.py`, `resident_contact_loader.py`, `resident_room_loader.py` — contacts/résidents/chambres.
+* `CSVReaderSingleton` — accès commun CSV.
+
+### 4.4 Interface QML (`ui/`)
+
+* Entrée : `ui/main.qml` (plein écran, `Style.qml`).
+* Accès façade : `robotFacade` (contexte injecté par `main.py`).
+* Pages : Accueil, **Visiteur** (11 catégories, 4 verrouillées), **Résident** (9 catégories), Quiz (ex. `MathsQuizPage.qml`), Jeux (`MemoryCardsPage.qml`, `SimonSaysPage.qml`, `ColorSequencePage.qml`), Utilitaires (`ActivitiesPage.qml`, `MenuPage.qml`, `PlanPage.qml`, `ContactPage.qml`, `ResidentRoomPage.qml`, `ResidentContactPage.qml`, `WifiPage.qml`, `SettingsPage.qml`).
+
+## 5) Données & formats
+
+### 5.1 Quiz CSV
+
+* Délimiteur `;` (UTF-8 recommandé). Colonnes B→G :
+  **B** `question` · **C** `reponse_correcte` · **D/E/F/G** `choix`.
+
 ```csv
-id;question;réponse_correcte;choix1;choix2;choix3;choix4;difficulté;anecdote
+id;question;reponse_correcte;choix1;choix2;choix3;choix4;difficulte;anecdote
 1;Combien font 2+2?;4;3;4;5;6;facile;Addition simple
 ```
 
-### Activités
-```csv
-Date;Heure;Activité;Description;Lieu
-2024-01-15;14:00;Atelier cuisine;Préparation de cookies;Cuisine
-```
+### 5.2 Dossiers
 
-### Menus
-```csv
-Jour;Heure;Type;Plat
-Lundi;12:00;Déjeuner;Salade César
-```
+* `quizzes/` — 13 CSV + `plan.jpg`.
+* `ui/assets/` — icônes/polices/sons.
 
-## 🔧 Configuration
+## 6) Installation
 
-### Variables d'environnement
+### 6.1 Prérequis
+
+* Python 3.8+ ; Raspberry Pi OS (ou Linux).
+* Optionnel robotique : PiCamera2, gpiozero/pigpio.
+* Wi-Fi système : `nmcli` côté OS.
+
+### 6.2 Environnement & dépendances
+
 ```bash
-export QT_QUICK_CONTROLS_STYLE=Material
+python -m venv .venv
+# Linux/Mac
+source .venv/bin/activate
+# Windows
+.venv\Scripts\activate
+pip install -U PySide6 opencv-python numpy
+# Optionnel (Raspberry Pi) :
+pip install gpiozero picamera2
 ```
 
-### Paramètres système
-- **Résolution** : Optimisé pour écrans tactiles 1024x768+
-- **Audio** : Support ALSA/PulseAudio
-- **Réseau** : WiFi avec interface graphique
+## 7) Exécution
 
-## 🎨 Personnalisation
-
-### Thème
-Modifiez `ui/Style.qml` pour personnaliser :
-- Couleurs principales
-- Tailles de police
-- Espacements
-- Animations
-
-### Ajout de quiz
-1. Créer un fichier CSV dans `quizzes/`
-2. Ajouter le mapping dans `chargeur_matieres.py`
-3. Créer une page QML correspondante
-
-## 🐛 Dépannage
-
-### Problèmes courants
-- **Import PySide6 échoue** : Vérifier l'installation dans le venv
-- **Fichiers CSV non trouvés** : Vérifier les chemins relatifs
-- **Interface ne s'affiche pas** : Vérifier les permissions d'affichage
-
-### Logs de debug
-Les erreurs sont affichées dans la console. Pour plus de détails :
 ```bash
-python main.py 2>&1 | tee app.log
+python main.py
 ```
 
-## 🤝 Contribution
+* Windows/macOS : Wi-Fi système désactivé automatiquement (info console).
+* Caméra absente : **mode simulation** (visage simulé) activé.
 
-1. Fork le projet
-2. Créer une branche feature (`git checkout -b feature/nouvelle-fonctionnalite`)
-3. Commit les changements (`git commit -am 'Ajout nouvelle fonctionnalité'`)
-4. Push vers la branche (`git push origin feature/nouvelle-fonctionnalite`)
-5. Créer une Pull Request
+## 8) Navigation (IU)
 
-## 📝 Licence
+* Accueil → `SeniorHomePage`.
+* Mode **Visiteur** → `VisiteurPage.qml` (11 catégories).
+* Mode **Résident** → `ResidentPage.qml` (9 catégories).
+* Bouton **JOUER** → `PlayPage.qml` (âge global).
+* Ex. appel QML :
 
-Ce projet est sous licence [MIT](LICENSE).
+```qml
+Button {
+  text: "Démarrer robot"
+  onClicked: robotFacade.start_robot_system()
+}
+```
 
-## 👥 Auteurs
+## 9) Dépannage (FAQ)
 
-- **Développeur Principal** - Interface et logique applicative
-- **Designer UX** - Expérience utilisateur adaptée aux seniors
+* **PySide6 introuvable** : activer venv + `pip install PySide6`.
+* **Wi-Fi inactif** : vérifier Linux + `nmcli`.
+* **CSV non lus** : vérifier chemin/encodage/délimiteur `;`.
+* **Caméra absente** : le mode simulation s’active (message console).
 
-## 🙏 Remerciements
+## 10) Développement
 
-- Communauté Qt/QML pour la documentation
-- Équipes de test pour les retours utilisateurs
-- Contributeurs open source
+* Styles : `ui/Style.qml`.
+* Ajouter un quiz : créer `quizzes/<matiere>.csv` (B→G), mapper dans `chargeur_matieres.py`, réutiliser `GenericQuizPage.qml` ou vue dédiée.
+* Extension robotique : implémenter moteurs **translation** et brancher `RobotFacade._approach_target_distance()`.
+
+## 11) Licence & crédits
+
+* **Licence** : MIT
+* **Crédits** : communauté Qt/QML, test utilisateurs, contributeurs.
+
+---
+
+### ✅ Couverture : c’est bon
+
+* Objectifs/périmètre ✔️
+* Architecture & façade ✔️
+* Structure projet ✔️
+* Modules & IU ✔️
+* Données & formats ✔️
+* Install, run, navigation, dépannage, dev, licence ✔️
+
+### 🔧 (Optionnel) Petits plus “pro”
+
+* **Paramètres par défaut** (tableau rapide) : deadbands, cibles (x/y), temps QTimer, tailles échantillon quiz, etc.
+* **Journalisation** : préciser que `print()` est utilisé (ou basculer vers `logging`).
+* **Tests/CI** : mention courte `pytest` + scénario de test (`test_capteurs_complet.py`).
+* **Données & confidentialité** : où sont lus/écrits les CSV, accès en lecture seule, pas de données sensibles persistées.
+
+Si tu veux, je peux ajouter **un mini tableau des paramètres par défaut** (vision/moteurs/IU) et une **section “Logs & Tests”** en 6 lignes pour finaliser la touche pro.
