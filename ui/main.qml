@@ -171,23 +171,17 @@ ApplicationWindow {
         }
     }
 
-    property font appFont: Qt.font({
-        family: "Roboto, Arial, Helvetica, sans-serif",
-        pixelSize: Style.fontSizeMedium
-    })
-
-    // Mode global : "parent" ou "enfant"
-    property string appMode: "enfant" // Démarre en mode enfant par défaut
-    // Age global sélectionné par le parent
-    property int globalSelectedAge: 3
-    
-    // Objet global pour les fonctions accessibles depuis n'importe où
-    property QtObject appGlobals: QtObject {
-        // Fonction pour montrer la page d'accueil interne avec bouton JOUER
-        function showInternalWelcomePage() {
-            // Vérifier s'il y a des pages à supprimer
-            while (stackView.depth > 1) {
-                stackView.pop(null, StackView.Immediate)
+    StackView {
+        id: stackView
+        anchors {
+            top: modeSwitchBanner.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        initialItem: "WelcomePage.qml"
+        Component.onCompleted: {
+            console.log("StackView initialItem:", initialItem);
         }
         pushEnter: Transition {
             PropertyAnimation {
@@ -379,10 +373,5 @@ ApplicationWindow {
                 }
             }
         }
-    }
-    
-    // Pop-up d'alerte pour capteurs défaillants
-    CapteurDefaillantPopup {
-        id: capteurDefaillantPopup
     }
 }
