@@ -1,11 +1,4 @@
-Top — j’ai relu ton contenu : il couvre bien les essentiels (objectif, archi, structure, modules, données, install, exécution, IU, dépannage, dev).
-Il manque juste **quelques petits plus “pro”** que je te propose en fin de doc (facultatifs) : tableau des **paramètres par défaut**, **journalisation**, **tests/CI**, **confidentialité & accès fichiers**.
-
-Voici la **version mise en forme** (cohérente, compacte, prête à coller) :
-
----
-
-# 🤖 LudoBot – Application interactive Qt/QML pour Raspberry Pi
+# LudoBot – Application interactive Qt/QML pour Raspberry Pi
 
 Application éducative et d’assistance orientée seniors/visiteurs, combinant quiz, jeux mémoire, gestion d’informations résidents et utilitaires, avec une architecture propre basée sur le **pattern Façade**.
 
@@ -167,27 +160,4 @@ Button {
 * Ajouter un quiz : créer `quizzes/<matiere>.csv` (B→G), mapper dans `chargeur_matieres.py`, réutiliser `GenericQuizPage.qml` ou vue dédiée.
 * Extension robotique : implémenter moteurs **translation** et brancher `RobotFacade._approach_target_distance()`.
 
-## 11) Licence & crédits
 
-* **Licence** : MIT
-* **Crédits** : communauté Qt/QML, test utilisateurs, contributeurs.
-
----
-
-### ✅ Couverture : c’est bon
-
-* Objectifs/périmètre ✔️
-* Architecture & façade ✔️
-* Structure projet ✔️
-* Modules & IU ✔️
-* Données & formats ✔️
-* Install, run, navigation, dépannage, dev, licence ✔️
-
-### 🔧 (Optionnel) Petits plus “pro”
-
-* **Paramètres par défaut** (tableau rapide) : deadbands, cibles (x/y), temps QTimer, tailles échantillon quiz, etc.
-* **Journalisation** : préciser que `print()` est utilisé (ou basculer vers `logging`).
-* **Tests/CI** : mention courte `pytest` + scénario de test (`test_capteurs_complet.py`).
-* **Données & confidentialité** : où sont lus/écrits les CSV, accès en lecture seule, pas de données sensibles persistées.
-
-Si tu veux, je peux ajouter **un mini tableau des paramètres par défaut** (vision/moteurs/IU) et une **section “Logs & Tests”** en 6 lignes pour finaliser la touche pro.
